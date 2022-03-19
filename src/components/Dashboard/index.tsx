@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Calendar from "../Calendar";
+import History from "../History";
 import { Wrapper } from "./styles"
 
 const Dashboard: FC = () => {
@@ -9,6 +10,7 @@ const Dashboard: FC = () => {
             <h4>Dashboard</h4>
         </div>
         <Calendar/>
+        <History><div>abc</div><div>abc</div><div>abc</div></History>
         </Wrapper>
     );
 }

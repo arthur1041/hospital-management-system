@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import HomeGrid from '../../components/HomeGrid';
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <div className="Home">
         <HomeGrid/>

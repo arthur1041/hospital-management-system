@@ -8,7 +8,12 @@ export const Wrapper = styled.div`
 
     .grid-container {
         width: 100%;
-        overflow-x: scroll;
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
+        .grid-container {
+            overflow-x: scroll;
+        }
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
