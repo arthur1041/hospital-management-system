@@ -14,5 +14,11 @@ export const theme: DefaultTheme = {
         infoColor: '#818181',
         white: '#FFFFFF',
         contrastiveWhite: '#F7F8FC',
+        gray: '#cccccc',
     },
+    breakpoints: {
+        mobile: '480px',
+        tablet: '768px',
+        desktop: '1024px',
+    }
 }

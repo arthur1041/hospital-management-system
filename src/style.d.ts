@@ -16,6 +16,12 @@ declare module 'styled-components' {
             infoColor: string,
             white: string,
             contrastiveWhite: string,
+            gray: string,
         },
+        breakpoints: {
+            mobile: string,
+            tablet: string,
+            desktop: string,
+        }
     }
 }

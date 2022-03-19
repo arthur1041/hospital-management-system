@@ -1,15 +1,19 @@
-import React from "react";
+import React, {FC} from "react";
 import { Wrapper } from "./styles";
 
 type ComponentProps = {
     buttonText: string
 }
 
-const SideBar = ({ buttonText }: ComponentProps) => {
+const SideBar: FC<ComponentProps> = ({ buttonText }) => {
     return (
         <Wrapper>
-            <h4>Medical Test</h4>
-            <div id="btn-change-page">{buttonText}</div>
+            <div className="grid-item">
+                <h4>Medical Test</h4>
+            </div>
+            <div className="grid-item">
+                <div id="btn-change-page">{buttonText}</div>
+            </div>
         </Wrapper>
     );
 }
