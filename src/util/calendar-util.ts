@@ -13,6 +13,18 @@ export const week = {
     SATURDAY: 6,
 }
 
+export const getWeekNameAbreviation = (day: number = 0) => {
+    if(day < 0)
+        day = 0;
+    else
+    if(day > 6)
+        day = 6;
+
+    const weeksAbrev: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    return weeksAbrev[day];
+}
+
 export const getCalendarStructure = () => {
     const hoursAndMinutes: HourAndMinutes[] = [
         {hour: 9, minute: 0},
