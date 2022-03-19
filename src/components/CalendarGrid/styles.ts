@@ -45,4 +45,12 @@ export const Wrapper = styled.div`
             height: 20px;
         }
     }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
+        grid-template-columns: 1fr 150px 150px 150px 150px 150px;
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
+        
+    }
 `;

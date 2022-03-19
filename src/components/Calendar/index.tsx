@@ -8,7 +8,9 @@ const Calendar: FC = () => {
             <div className="calendar-header">
                 <h3>Calendar</h3>
             </div>
-            <CalendarGrid/>
+            <div className="grid-container">
+                <CalendarGrid/>
+            </div>
         </Wrapper>
     );
 }

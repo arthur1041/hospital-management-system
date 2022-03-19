@@ -14,6 +14,6 @@ export const Wrapper = styled.div`
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
-
+        padding: 10px;
     }
 `;
