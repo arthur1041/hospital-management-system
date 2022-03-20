@@ -27,7 +27,7 @@ function isDateInThisWeek(date: Date) {
 const getAppointmentByWeekAndTime = (weekDay: number, hour: number, minute: number, appointments: any[]) => {
     let appointment = null;
     appointments.forEach(el => {
-        const appointmentDate: Date = new Date(el.startTime.replace("Z", ""));
+        const appointmentDate: Date = new Date(el.startTime);
         if (isDateInThisWeek(appointmentDate) &&
             (appointmentDate.getDay() === weekDay && appointmentDate.getHours() === hour && appointmentDate.getMinutes() === minute)) {
             appointment = el;
@@ -36,21 +36,16 @@ const getAppointmentByWeekAndTime = (weekDay: number, hour: number, minute: numb
     return appointment;
 }
 
-const getAppointmentByWeekAndTimeTest = (appointments: any[]) => {
+const getNumberOfCellsOccupied = (endDate: Date, startDate: Date) => {
+    const milis: number = endDate.getTime() - startDate.getTime();
+    const minutes: number = milis / (1000 * 60);
 
-    appointments.forEach(el => {
-        const appointmentDate: Date = new Date(el.startTime.replace("Z", ""));
-        if (isDateInThisWeek(appointmentDate)) {
-            console.log(appointmentDate);
-        }
-    });
-
+    return Math.trunc(minutes / 30);
 }
 
 export const CalendarGrid: FC<ComponentProps> = ({ appointments }) => {
 
     const calendarStructure: Map<number, HourAndMinutes[]> = getCalendarStructure();
-    getAppointmentByWeekAndTimeTest(appointments);
     return (
         <Wrapper>
             {/* {appointments.map((el) => {
@@ -65,16 +60,39 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments }) => {
             </div>
 
             {Array.from(calendarStructure).map(([key, value]) => {
+                let lastCellIsMergedBy: number = 0;
                 return (
                     <div key={key} className="calendar-col">
                         <div className="grid-col-item day-of-the-week"><h5>{getWeekNameAbreviation(key)}</h5></div>
                         {value.map(({ hour, minute }) => {
                             const appointment: any = getAppointmentByWeekAndTime(key, hour, minute, appointments);
-                            // return <div>{hour}:{minute === 0 ? '00' : minute}</div>
-                            return <div key={hour + minute}
-                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null ) ? " booked" : "")}>
-                                    {appointment !== null ? appointment.id : ''}
-                                </div>
+
+                            const defaultCell = <div key={hour + minute}
+                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
+                                {appointment !== null ? appointment.id : ''}
+                            </div>
+                            
+                            if (appointment !== null && appointment.status === "completed") {
+                                const numberOfCells = getNumberOfCellsOccupied(new Date(appointment.endTime), new Date(appointment.startTime));
+
+                                if (numberOfCells >= 2) {
+                                    lastCellIsMergedBy = numberOfCells-1;
+                                    return <div key={hour + minute}
+                                        className={"grid-col-item calendar-item merged merged-by-"+numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
+                                        {appointment !== null ? appointment.id : ''}
+                                    </div>
+                                } else {
+                                    return defaultCell;
+                                }
+
+                            }
+                            console.log("lastcell", lastCellIsMergedBy);
+                            if(lastCellIsMergedBy === 0)
+                                return defaultCell;
+                            
+                            lastCellIsMergedBy--;
+
+                            return "";
                         })}
                     </div>
                 )

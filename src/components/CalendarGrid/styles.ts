@@ -22,6 +22,18 @@ export const Wrapper = styled.div`
             &.booked {
                 background-color: ${({theme}) => theme.colors.primaryColor};
             }
+
+            &.merged-by-2 {
+                height: 190px;
+            }
+
+            &.merged-by-3 {
+                height: 290px;
+            }
+
+            &.merged-by-4 {
+                height: 390px;
+            }
         }
 
         &.time-of-the-day {

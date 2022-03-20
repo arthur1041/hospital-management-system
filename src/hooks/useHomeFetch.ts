@@ -19,6 +19,14 @@ export const useHomeFetch = () => {
             const appointments = await API.fetchAppointments();
             const patients = await API.fetchPatients();
 
+            appointments.forEach((appointment: any) => {
+                if(appointment.startTime)
+                    appointment.startTime = appointment.startTime.replace("Z", "");
+                if(appointment.endTime)
+                    appointment.endTime = appointment.endTime.replace("Z", "");
+        
+            });
+
             setState({
                 appointments,
                 patients
