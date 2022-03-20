@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import { Wrapper } from "./style";
+import { Wrapper } from "./styles";
 
 const History: FC = ({children}) => {
     return (
@@ -7,7 +7,7 @@ const History: FC = ({children}) => {
             <div className="history-header">
                 <h3>History</h3>
             </div>
-            <div>
+            <div className="registries-container">
                 {children}
             </div>
         </Wrapper>
