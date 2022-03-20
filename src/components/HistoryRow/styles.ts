@@ -31,6 +31,14 @@ export const Wrapper = styled.div`
             justify-content: right;
         }
 
+        &.appointment-type span.name {
+            min-width: 72px;
+        }
+
+        &.appointment-type span.icon {
+            margin-right: 5px;
+        }
+
         &.status.completed_styling span {
             background-color: ${({ theme }) => theme.colors.secondaryColor};
         }
@@ -46,5 +54,19 @@ export const Wrapper = styled.div`
 
     &:last-child {
         border-bottom: none;
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
+
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
+        grid-template-columns: 1fr 1fr;
+
+        .grid-item{
+            &.status, &.appointment-type{
+                display: none;
+            } 
+        }
     }
 `;
