@@ -18,6 +18,10 @@ export const Wrapper = styled.div`
             &.no-margin-top{
                 margin-top: 0;
             }
+
+            &.booked {
+                background-color: ${({theme}) => theme.colors.primaryColor};
+            }
         }
 
         &.time-of-the-day {
