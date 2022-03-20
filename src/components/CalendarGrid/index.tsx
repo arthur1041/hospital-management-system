@@ -6,6 +6,8 @@ type ComponentProps = {
     appointments: any[]
 }
 
+let exhibitedWeek = 6;
+
 function isDateInThisWeek(date: Date) {
     date = new Date(date);
 
@@ -16,7 +18,7 @@ function isDateInThisWeek(date: Date) {
     const todayDate = todayObj.getDate();
     const todayDay = todayObj.getDay();
 
-    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + 6)));
+    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + exhibitedWeek)));
 
     const lastDayOfWeek = new Date(firstDayOfWeek);
     lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
