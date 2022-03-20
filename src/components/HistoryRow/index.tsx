@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 import { Wrapper } from "./styles";
-import { FaBriefcaseMedical,FaStethoscope } from 'react-icons/fa'; //firs visit
-import { IoMdPulse } from 'react-icons/io'; //exam
-import { GiDrippingKnife, GiNotebook } from 'react-icons/gi' //checkup //surgery //followup
-
+import { FaBriefcaseMedical,FaStethoscope } from 'react-icons/fa';
+import { IoMdPulse } from 'react-icons/io';
+import { GiDrippingKnife, GiNotebook } from 'react-icons/gi';
 type ComponentProps = {
     date: string,
     status: string,

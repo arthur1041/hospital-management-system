@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import AppointmentStatus from '../../components/ApointmentStatus';
+import AppointmentTypes from '../../components/AppointmentTypes';
 import Calendar from '../../components/Calendar';
 import History from '../../components/History';
 import HistoryRow from '../../components/HistoryRow';
 import MainGrid from '../../components/MainGrid';
 import { useHomeFetch } from '../../hooks/useHomeFetch';
+import { IndicatorsContainer } from './styles';
 
 const Home: FC = () => {
 
@@ -13,7 +15,10 @@ const Home: FC = () => {
     return (
         <div className="Home">
             <MainGrid breadcrumbText="patients">
-                <AppointmentStatus/>
+                <IndicatorsContainer>
+                    <AppointmentStatus/>
+                    <AppointmentTypes/>
+                </IndicatorsContainer>
                 <Calendar appointments={state.appointments} patients={state.patients} />
                 <History>
                     <HistoryRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
