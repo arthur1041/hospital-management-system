@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import { Wrapper } from "./styles";
 import { getCalendarStructure, HourAndMinutes, week, getWeekNameAbreviation } from "../../util/calendar-util";
+import { getEntityById } from "../../helpers/helper-functions";
 
 type ComponentProps = {
-    appointments: any[]
+    appointments: any[],
+    patients: any[],
 }
 
 let exhibitedWeek = 6;
@@ -45,7 +47,7 @@ const getNumberOfCellsOccupied = (endDate: Date, startDate: Date) => {
     return Math.trunc(minutes / 30);
 }
 
-export const CalendarGrid: FC<ComponentProps> = ({ appointments }) => {
+export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => {
 
     const calendarStructure: Map<number, HourAndMinutes[]> = getCalendarStructure();
     return (
@@ -69,19 +71,27 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments }) => {
                         {value.map(({ hour, minute }) => {
                             const appointment: any = getAppointmentByWeekAndTime(key, hour, minute, appointments);
 
+                            const patient: any = appointment !== null ? getEntityById(appointment.patientId, patients) : null;
+
+                            const cellContent = appointment != null ? <div className="calendar-cell-content-wrapper">
+                                <div className="patient-name">{patient !== null ? patient.name : ''}</div>
+                                <div className="appointment-description">{appointment.description}</div>
+                            </div> : <></> ;
+
                             const defaultCell = <div key={hour + minute}
                                 className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
-                                {appointment !== null ? appointment.id : ''}
+                                {cellContent}
                             </div>
-                            
+
+
                             if (appointment !== null && appointment.status === "completed") {
                                 const numberOfCells = getNumberOfCellsOccupied(new Date(appointment.endTime), new Date(appointment.startTime));
 
                                 if (numberOfCells >= 2) {
-                                    lastCellIsMergedBy = numberOfCells-1;
+                                    lastCellIsMergedBy = numberOfCells - 1;
                                     return <div key={hour + minute}
-                                        className={"grid-col-item calendar-item merged merged-by-"+numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
-                                        {appointment !== null ? appointment.id : ''}
+                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
+                                        {cellContent}
                                     </div>
                                 } else {
                                     return defaultCell;
@@ -89,9 +99,9 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments }) => {
 
                             }
                             console.log("lastcell", lastCellIsMergedBy);
-                            if(lastCellIsMergedBy === 0)
+                            if (lastCellIsMergedBy === 0)
                                 return defaultCell;
-                            
+
                             lastCellIsMergedBy--;
 
                             return "";

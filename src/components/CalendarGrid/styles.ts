@@ -15,6 +15,29 @@ export const Wrapper = styled.div`
         }
 
         &.calendar-item {
+            padding: 5px;
+            color: ${({theme}) => theme.colors.white};
+
+            .calendar-cell-content-wrapper {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                overflow: hidden;
+                
+                
+                .patient-name {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+
+                .appointment-description {    
+                    text-align: center;
+                    font-size: 11px;
+                }
+            }
+
             &.no-margin-top{
                 margin-top: 0;
             }
