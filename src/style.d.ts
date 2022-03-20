@@ -14,8 +14,10 @@ declare module 'styled-components' {
             secondaryColor: string,
             dangerColor: string,
             infoColor: string,
+            warningColor: string,
             white: string,
             contrastiveWhite: string,
+            secondaryContrastiveWhite: string,
             gray: string,
         },
         breakpoints: {

@@ -2,37 +2,23 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 10fr 10fr 10fr;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-    
+        
     .grid-item{
         display: flex;
-
-        &.status, &.name{    
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        &.date, &.appointment-type {
-            align-items: center;
+        justify-content: center;
+        align-items: center;
+        
+        &.icon{    
+            justify-content: left;
         }
 
         &.status span {
             color: ${({ theme }) => theme.colors.white};
             padding: 5px;
             border-radius: 5px;
-        }
-
-        &.appointment-type {
-            display: flex;
-            justify-content: right;
-        }
-
-        &.appointment-type span.name {
-            min-width: 72px;
         }
 
         &.appointment-type span.icon {

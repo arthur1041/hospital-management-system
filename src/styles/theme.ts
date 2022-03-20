@@ -12,8 +12,10 @@ export const theme: DefaultTheme = {
         secondaryColor: '#46CE77',
         dangerColor: '#E1645B',
         infoColor: '#818181',
+        warningColor: '#E4A44A',
         white: '#FFFFFF',
         contrastiveWhite: '#F7F8FC',
+        secondaryContrastiveWhite: '#EAEBEF',
         gray: '#cccccc',
     },
     breakpoints: {
