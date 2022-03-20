@@ -7,7 +7,7 @@ import MainGrid from '../../components/MainGrid';
 const Home: FC = () => {
   return (
     <div className="Home">
-        <MainGrid>
+        <MainGrid breadcrumbText="patients">
             <Calendar/>
             <History>
                 <HistoryRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />

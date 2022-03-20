@@ -3,11 +3,15 @@ import Dashboard from "../Dashboard";
 import SideBar from "../SideBar";
 import { Wrapper } from "./styles"
 
-const MainGrid: FC = ({children}) => {
+type ComponentProps = {
+    breadcrumbText: string 
+}
+
+const MainGrid: FC<ComponentProps> = ({breadcrumbText, children}) => {
     return (
         <Wrapper>
             <div className="grid-item">
-                <SideBar buttonText="click me" />
+                <SideBar breadcrumbText={breadcrumbText} />
             </div>
             <div className="grid-item">
                 <Dashboard>{children}</Dashboard>

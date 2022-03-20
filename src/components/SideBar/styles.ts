@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
         text-align: center;
     }
 
-    #btn-change-page {
+    .breadcrumb {
         width: 100%;
         max-width: 220px;
         border: 1px solid ${({theme}) => theme.colors.gray};
@@ -19,10 +19,9 @@ export const Wrapper = styled.div`
         position: relative;
         padding: 5px 10px 5px 10px;
         margin-top: 20px;
-        cursor: pointer;
     }
 
-    #btn-change-page::after {
+    .breadcrumb::after {
         content: '>';
         right: 7px;
         position: absolute;
@@ -45,7 +44,7 @@ export const Wrapper = styled.div`
             justify-content: center;
         }
 
-        #btn-change-page {
+        .breadcrumb {
             margin-top: 0;
             max-width: none;
         }
