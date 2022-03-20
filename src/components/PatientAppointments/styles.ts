@@ -32,6 +32,15 @@ export const Wrapper = styled.div`
     
     .appointment-details {
         border-radius: 0px 0px 10px 10px;
+        h5 {
+            padding-bottom: 15px;
+        }
+        h3 {
+            padding-bottom: 10px;
+        }
+        div {
+            padding-left: 30px;
+        }
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
@@ -46,6 +55,12 @@ export const Wrapper = styled.div`
         .tabs {
             .tab {
                 padding: 10px;
+            }
+        }
+
+        .appointment-details {
+            div {
+                padding-left: initial;
             }
         }
     }
