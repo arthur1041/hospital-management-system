@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
     .tabs {
         display: flex;
         .tab {
-            padding: 20px;
+            padding: 15px;
             margin-right: 10px;
             border-radius: 10px 10px 0 0;
             background-color: ${({theme}) => theme.colors.secondaryContrastiveWhite};
@@ -44,11 +44,7 @@ export const Wrapper = styled.div`
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
-        .tabs {
-            .tab {
-                padding: 15px;
-            }
-        }
+        
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){

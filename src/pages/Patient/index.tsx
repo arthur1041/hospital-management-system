@@ -1,11 +1,20 @@
 import React, { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import AppointmentRow from '../../components/AppointmentRow';
 import Card from '../../components/Card';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
+import { usePatientFetch } from '../../hooks/usePatientFetch';
 import { CardsGrid } from './styles';
 
 const Patient: FC = () => {
+
+    const { patientId, appointmentId } = useParams();
+
+    const {state, loading, error} = usePatientFetch(Number(patientId), Number(appointmentId));
+
+    console.log('paramaters', patientId, appointmentId );
+
     return (
         <div className="Home">
             <MainGrid breadcrumbText="patient name">
