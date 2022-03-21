@@ -1,4 +1,4 @@
-import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate } from './helper-functions';
+import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId } from './helper-functions';
 
 it('properly finds an entity given an id', () => {
     const entities: any[] = [{ id: 1, name: 'Peter' }, { id: 2, name: 'Linda' }, { id: 3, name: 'John' }, { id: 4, name: 'Gwen' }];
@@ -9,7 +9,7 @@ it('properly finds an entity given an id', () => {
 it('properly formats a date', () => {
     const currentDate: Date = new Date();
     const currentDatePlusAnHour = new Date(currentDate);
-    currentDatePlusAnHour.setHours(currentDate.getHours()+1);
+    currentDatePlusAnHour.setHours(currentDate.getHours() + 1);
     const testAppointment = {
         startTime: currentDate,
         endTime: currentDatePlusAnHour
@@ -20,7 +20,7 @@ it('properly formats a date', () => {
 });
 
 it('properly sorts objects', () => {
-    
+
     const testAppointmentArray = [
         {
             startTime: new Date(4000),
@@ -41,7 +41,7 @@ it('properly sorts objects', () => {
 });
 
 it('properly sorts objects reversely', () => {
-    
+
     const testAppointmentArray = [
         {
             startTime: new Date(4000),
@@ -59,4 +59,15 @@ it('properly sorts objects reversely', () => {
 
     expect(sortReverseAppointmentsByDate(testAppointmentArray)[0].startTime).toStrictEqual(new Date(4000));
     expect(sortReverseAppointmentsByDate(testAppointmentArray)[3].startTime).toStrictEqual(new Date(1000));
+});
+
+
+it('properly sorts formats document', () => {
+
+    expect(formatDocument("00000000000")).toBe("000.000.000-00");
+});
+
+it('properly sorts formats health system id', () => {
+
+    expect(formatHealthSystemId("0000000000")).toBe("000.000/0000");
 });

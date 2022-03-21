@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { formatDocument } from "../../helpers/helper-functions";
 import Pagination from "../Pagination";
 import PatientRow from "../PatientRow";
 import Spinner from "../Spinner";
@@ -43,7 +44,7 @@ const PatientsList: FC<ComponentProps> = ({ patients }) => {
                         currentPatients.map((el: any) => {
                             return (
                                 <Link key={el.id} className="link" to={`/patient/${el.id}`}>
-                                    <PatientRow name={el.name} document={el.document} plan={el.insurancePlan} />
+                                    <PatientRow name={el.name} document={formatDocument(el.document)} plan={el.insurancePlan} />
                                 </Link>
                             );
                         })

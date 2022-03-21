@@ -52,3 +52,14 @@ export const sortAppointmentsByDate = (appointments: any[]) => {
 export const sortReverseAppointmentsByDate = (appointments: any[]) => {
     return appointments.sort(compare).reverse();
 }
+
+export const formatDocument = (document: string) => {
+    document = document.replace(/[^\d]/g, "");
+    return document.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
+
+export const formatHealthSystemId = (document: string) => {
+    document = document.replace(/[^\d]/g, "");
+    return document.replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2/$3");
+}
+
