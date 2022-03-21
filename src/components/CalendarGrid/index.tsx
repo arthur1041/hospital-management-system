@@ -52,10 +52,6 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
     const calendarStructure: Map<number, HourAndMinutes[]> = getCalendarStructure();
     return (
         <Wrapper>
-            {/* {appointments.map((el) => {
-                return <div key={el.id}>{el.id}</div>
-            })} */}
-
             <div className="calendar-col col-hours">
                 <div className="grid-col-item corner">{/*calendar corner*/}</div>
                 {calendarStructure.get(week.MONDAY)?.map(({ hour, minute }) => {
@@ -79,7 +75,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                             </div> : <></> ;
 
                             const defaultCell = <div key={hour + minute}
-                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
+                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment !== null) ? " booked" : "") + (appointment !== null ? " "+appointment.status : '' )}>
                                 {cellContent}
                             </div>
 
@@ -90,7 +86,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                                 if (numberOfCells >= 2) {
                                     lastCellIsMergedBy = numberOfCells - 1;
                                     return <div key={hour + minute}
-                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "")}>
+                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " "+appointment.status : '' )}>
                                         {cellContent}
                                     </div>
                                 } else {

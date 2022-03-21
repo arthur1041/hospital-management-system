@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
     .grid-col-item {
         &.calendar-item {
             height: 90px;
-            border: 1px dotted ${({theme}) => {return theme.colors.gray}};
+            border: 1px dotted ${({ theme }) => { return theme.colors.gray }};
             border-radius: 5px;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 
         &.calendar-item {
             padding: 5px;
-            color: ${({theme}) => theme.colors.white};
+            color: ${({ theme }) => theme.colors.white};
 
             .calendar-cell-content-wrapper {
                 height: 100%;
@@ -43,7 +43,23 @@ export const Wrapper = styled.div`
             }
 
             &.booked {
-                background-color: ${({theme}) => theme.colors.primaryColor};
+                background-color: ${({ theme }) => theme.colors.primaryColor};
+            
+                &.pending {
+                    background-color: ${({ theme }) => theme.colors.warningColor};
+                }
+
+                &.completed {
+                    background-color: ${({ theme }) => theme.colors.secondaryColor};
+                }
+
+                &.cancelled {
+                    background-color: ${({ theme }) => theme.colors.infoColor};
+                }
+
+                &.absent {
+                    background-color: ${({ theme }) => theme.colors.dangerColor};
+                }
             }
 
             &.merged-by-2 {
