@@ -27,6 +27,8 @@ export const useHomeFetch = () => {
         
             });
 
+            console.log("all appointments", appointments);
+
             setState({
                 appointments,
                 patients

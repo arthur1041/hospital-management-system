@@ -7,6 +7,7 @@ import HistoryRow from '../../components/HistoryRow';
 import MainGrid from '../../components/MainGrid';
 import { useHomeFetch } from '../../hooks/useHomeFetch';
 import { IndicatorsContainer } from './styles';
+import { formatAppointmentDates } from '../../helpers/helper-functions';
 
 const Home: FC = () => {
 
@@ -21,11 +22,16 @@ const Home: FC = () => {
                 </IndicatorsContainer>
                 <Calendar appointments={state.appointments} patients={state.patients} />
                 <History>
-                    <HistoryRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                    {
+                        state.appointments.map((el: any)=>{
+                            return<HistoryRow key={el.id} date={formatAppointmentDates(el)} status="completed" name="John Doe" appointmentType="firstVisit" />;
+                        })
+                    }
+                    {/* <HistoryRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
                     <HistoryRow date="04/19/2021 12:00" status="cancelled" name="Mary Doe" appointmentType="followUp" />
                     <HistoryRow date="04/19/2021 12:00" status="absent" name="John Doe" appointmentType="checkUp" />
                     <HistoryRow date="04/19/2021 12:00" status="completed" name="Mary Doe" appointmentType="exam" />
-                    <HistoryRow date="04/19/2021 12:00" status="pending" name="John Doe" appointmentType="surgery" />
+                    <HistoryRow date="04/19/2021 12:00" status="pending" name="John Doe" appointmentType="surgery" /> */}
                 </History>
             </MainGrid>
         </div>
