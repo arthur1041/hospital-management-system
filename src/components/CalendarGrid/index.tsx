@@ -2,6 +2,9 @@ import React, { FC } from "react";
 import { Wrapper } from "./styles";
 import { getCalendarStructure, HourAndMinutes, week, getWeekNameAbreviation } from "../../util/calendar-util";
 import { getEntityById } from "../../helpers/helper-functions";
+import { FaBriefcaseMedical, FaStethoscope } from 'react-icons/fa';
+import { IoMdPulse } from 'react-icons/io';
+import { GiDrippingKnife, GiNotebook } from 'react-icons/gi';
 
 type ComponentProps = {
     appointments: any[],
@@ -69,13 +72,36 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
 
                             const patient: any = appointment !== null ? getEntityById(appointment.patientId, patients) : null;
 
+                            let appointmentTypeIcon;
+
+                            if (appointment != null) {
+                                const iconsize: number = 15
+                                switch (appointment.type) {
+                                    case 'firstVisit':
+                                        appointmentTypeIcon = <FaBriefcaseMedical size={iconsize} />
+                                        break
+                                    case 'followUp':
+                                        appointmentTypeIcon = <GiNotebook size={iconsize} />;
+                                        break;
+                                    case 'checkUp':
+                                        appointmentTypeIcon = <FaStethoscope size={iconsize} />;
+                                        break;
+                                    case 'exam':
+                                        appointmentTypeIcon = <IoMdPulse size={iconsize} />;
+                                        break;
+                                    case 'surgery':
+                                        appointmentTypeIcon = <GiDrippingKnife size={iconsize} />
+                                }
+                            }
+
                             const cellContent = appointment != null ? <div className="calendar-cell-content-wrapper">
                                 <div className="patient-name">{patient !== null ? patient.name : ''}</div>
                                 <div className="appointment-description">{appointment.description}</div>
-                            </div> : <></> ;
+                                <span className="type-icon">{appointmentTypeIcon}</span>
+                            </div> : <></>;
 
                             const defaultCell = <div key={hour + minute}
-                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment !== null) ? " booked" : "") + (appointment !== null ? " "+appointment.status : '' )}>
+                                className={"grid-col-item calendar-item" + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment !== null) ? " booked" : "") + (appointment !== null ? " " + appointment.status : '')}>
                                 {cellContent}
                             </div>
 
@@ -86,7 +112,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                                 if (numberOfCells >= 2) {
                                     lastCellIsMergedBy = numberOfCells - 1;
                                     return <div key={hour + minute}
-                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " "+appointment.status : '' )}>
+                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " " + appointment.status : '')}>
                                         {cellContent}
                                     </div>
                                 } else {

@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
         &.calendar-item {
             padding: 5px;
             color: ${({ theme }) => theme.colors.white};
+            position: relative;
 
             .calendar-cell-content-wrapper {
                 height: 100%;
@@ -24,8 +25,7 @@ export const Wrapper = styled.div`
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
-                overflow: hidden;
-                
+                overflow-y: hidden;
                 
                 .patient-name {
                     font-size: 15px;
@@ -36,6 +36,12 @@ export const Wrapper = styled.div`
                     text-align: center;
                     font-size: 11px;
                 }
+
+                .type-icon {
+                    position: absolute;
+                    right: 1px;
+                    top: 1px;
+                }
             }
 
             &.no-margin-top{
@@ -44,7 +50,9 @@ export const Wrapper = styled.div`
 
             &.booked {
                 background-color: ${({ theme }) => theme.colors.primaryColor};
-            
+                
+                cursor: pointer;
+
                 &.pending {
                     background-color: ${({ theme }) => theme.colors.warningColor};
                 }
@@ -103,9 +111,28 @@ export const Wrapper = styled.div`
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
         grid-template-columns: 1fr 150px 150px 150px 150px 150px;
+
+        .calendar-cell-content-wrapper {    
+            .patient-name {
+                font-size: 13px;
+                
+            }
+
+            .appointment-description {    
+                font-size: 10px;
+            }
+        }
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
-        
+        .calendar-cell-content-wrapper { 
+            .appointment-description { 
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+
+                text-overflow: ellipsis;
+            }
+        }
     }
 `;
