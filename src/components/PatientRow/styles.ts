@@ -3,9 +3,8 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+    padding-top: 10px;
+    padding-bottom: 10px;
     cursor: pointer;
 
     .grid-item{
@@ -46,10 +45,6 @@ export const Wrapper = styled.div`
         &.status.pending_styling span{
             background-color: ${({ theme }) => theme.colors.warningColor};
         }
-    }
-
-    &:last-child {
-        border-bottom: none;
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){

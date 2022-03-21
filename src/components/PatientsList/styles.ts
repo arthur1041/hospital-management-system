@@ -13,5 +13,14 @@ export const Wrapper = styled.div`
         border-radius: 10px;
         padding-left: 10px;
         padding-right: 10px;
+
+        .link {
+            display: block;
+            border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+        }
+
+        .link:last-child {
+            border-bottom: none;
+        }
     }
 `;

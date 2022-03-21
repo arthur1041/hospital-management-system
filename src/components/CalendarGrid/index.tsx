@@ -5,6 +5,7 @@ import { getEntityById } from "../../helpers/helper-functions";
 import { FaBriefcaseMedical, FaStethoscope } from 'react-icons/fa';
 import { IoMdPulse } from 'react-icons/io';
 import { GiDrippingKnife, GiNotebook } from 'react-icons/gi';
+import { Link } from "react-router-dom";
 
 type ComponentProps = {
     appointments: any[],
@@ -111,18 +112,31 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
 
                                 if (numberOfCells >= 2) {
                                     lastCellIsMergedBy = numberOfCells - 1;
-                                    return <div key={hour + minute}
-                                        className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " " + appointment.status : '')}>
-                                        {cellContent}
-                                    </div>
+                                    return (
+                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}?appointmentId=${appointment.id}`}>
+                                            <div
+                                                className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " " + appointment.status : '')}>
+                                                {cellContent}
+                                            </div>
+                                        </Link>
+                                    )
                                 } else {
                                     return defaultCell;
                                 }
 
                             }
 
-                            if (lastCellIsMergedBy === 0)
+                            if (lastCellIsMergedBy === 0) {
+                                if (appointment != null) {
+                                    return (
+                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}?appointmentId=${appointment.id}`}>
+                                            {defaultCell}
+                                        </Link>
+                                    );
+                                }
+
                                 return defaultCell;
+                            }
 
                             lastCellIsMergedBy--;
 
