@@ -26,6 +26,7 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
                 <h3>History</h3>
             </div>
             <div className="registries-container">
+                
                 {
                     currentAppointments.map((el: any) => {
                         const patient = getEntityById(el.patientId, patients);
