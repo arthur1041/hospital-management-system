@@ -13,7 +13,7 @@ type ComponentProps = {
 const History: FC<ComponentProps> = ({ appointments, patients }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [render, setRender] = useState(false);
+    const [render, setRender] = useState(true);
     const appointmentsPerPage = 10;
 
     const indexOfLastAppointment = currentPage * appointmentsPerPage;
@@ -27,9 +27,10 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
 
     useEffect(() => {
         setTimeout(function () {
-            setRender(true)
+            if(!render)
+                setRender(true);
         }.bind(this), 500)
-    }, [currentPage]);
+    }, [currentPage, render]);
 
     return (
         <Wrapper>
