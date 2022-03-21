@@ -11,7 +11,7 @@ type ComponentProps = {
     patients: any[],
 }
 
-let exhibitedWeek = 6;
+let exhibitedWeek = 7; //change here
 
 function isDateInThisWeek(date: Date) {
     date = new Date(date);
@@ -120,7 +120,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                                 }
 
                             }
-                            console.log("lastcell", lastCellIsMergedBy);
+
                             if (lastCellIsMergedBy === 0)
                                 return defaultCell;
 

@@ -48,3 +48,7 @@ const compare = (a: any, b: any) => {
 export const sortAppointmentsByDate = (appointments: any[]) => {
     return appointments.sort(compare);
 }
+
+export const sortReverseAppointmentsByDate = (appointments: any[]) => {
+    return appointments.sort(compare).reverse();
+}

@@ -6,7 +6,8 @@ export const Wrapper = styled.div`
     padding-top: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-    
+    cursor: pointer;
+
     .grid-item{
         display: flex;
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import API from "../api/API";
+import { sortReverseAppointmentsByDate } from "../helpers/helper-functions";
+import { week } from "../util/calendar-util";
 
 const initialState = {
     appointments: [],
@@ -16,18 +18,26 @@ export const useHomeFetch = () => {
             setError(false);
             setLoading(true);
 
-            const appointments = await API.fetchAppointments();
+            let appointments = await API.fetchAppointments();
             const patients = await API.fetchPatients();
 
             appointments.forEach((appointment: any) => {
-                if(appointment.startTime)
+                if (appointment.startTime)
                     appointment.startTime = new Date(appointment.startTime.replace("Z", ""));
-                if(appointment.endTime)
+                if (appointment.endTime)
                     appointment.endTime = new Date(appointment.endTime.replace("Z", ""));
-        
+            });
+            
+            const businessDayAppointments: any[] = [];
+            appointments.forEach((el: any) => {
+                if(el.startTime.getDay() !== week.SUNDAY && el.startTime.getDay() !== week.SATURDAY){
+                    businessDayAppointments.push(el);
+                }
             });
 
-            console.log("all appointments", appointments);
+            appointments = businessDayAppointments;
+
+            appointments = sortReverseAppointmentsByDate(appointments);
 
             setState({
                 appointments,
@@ -43,5 +53,5 @@ export const useHomeFetch = () => {
         fetchAppointmentsAndPatients();
     }, []);
 
-    return {state, loading, error};
+    return { state, loading, error };
 }
