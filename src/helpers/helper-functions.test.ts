@@ -1,5 +1,5 @@
 import API from '../api/API';
-import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId, getAge, getAppointmentsByPatient, getLatestCompletedAppointment, removeNonBusinessDay, convertDate } from './helper-functions';
+import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId, getAge, getAppointmentsByPatient, getLatestCompletedAppointment, removeNonBusinessDay, convertDate, getAgeInMonths } from './helper-functions';
 
 it('properly finds an entity given an id', () => {
     const entities: any[] = [{ id: 1, name: 'Peter' }, { id: 2, name: 'Linda' }, { id: 3, name: 'John' }, { id: 4, name: 'Gwen' }];
@@ -75,7 +75,12 @@ it('properly sorts formats health system id', () => {
 
 it('properly calculates age', () => {
 
-    expect(getAge(new Date('2002-12-29'))).toBe(19);
+    expect(getAge(new Date())).toBe(0);
+});
+
+it('properly calculates age in months', () => {
+
+    expect(getAgeInMonths(new Date())).toBe(0);
 });
 
 it("properly gets a patient's appointments", async () => {
@@ -107,6 +112,6 @@ it("properly converts a date", async () => {
     const appointments: any[] = await API.fetchAppointments();
 
     convertDate(appointments[0].startTime);
-    
+
     expect(convertDate(appointments[0].startTime)).toBeInstanceOf(Date);
 });
