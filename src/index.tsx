@@ -15,6 +15,7 @@ ReactDOM.render(
             <Routes>
                 <Route path='/' element={<Home />}/>
                 <Route path='/patient/:patientId' element={<Patient/>} />
+                <Route path='/patient/:patientId/appointment/:appointmentId' element={<Patient/>} />
             </Routes>
         </ThemeProvider>
     </Router>

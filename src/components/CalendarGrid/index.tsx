@@ -113,7 +113,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                                 if (numberOfCells >= 2) {
                                     lastCellIsMergedBy = numberOfCells - 1;
                                     return (
-                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}?appointmentId=${appointment.id}`}>
+                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}/appointment/${appointment.id}`}>
                                             <div
                                                 className={"grid-col-item calendar-item merged merged-by-" + numberOfCells + ((hour === 9 && minute === 0) ? " no-margin-top" : "") + ((appointment != null) ? " booked" : "") + (appointment !== null ? " " + appointment.status : '')}>
                                                 {cellContent}
@@ -129,7 +129,7 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                             if (lastCellIsMergedBy === 0) {
                                 if (appointment != null) {
                                     return (
-                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}?appointmentId=${appointment.id}`}>
+                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}/appointment/${appointment.id}`}>
                                             {defaultCell}
                                         </Link>
                                     );

@@ -45,7 +45,7 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
                         currentAppointments.map((el: any) => {
                             const patient = getEntityById(el.patientId, patients);
                             return (
-                                <Link key={el.id} className="link" to={`/patient/${el.patientId}?appointmentId=${el.id}`}>
+                                <Link key={el.id} className="link" to={`/patient/${el.patientId}/appointment/${el.id}`}>
                                     <HistoryRow key={el.id} date={formatAppointmentDates(el)} status={el.status} name={patient !== null ? patient.name : ''} appointmentType={el.type} />
                                 </Link>
                             );
