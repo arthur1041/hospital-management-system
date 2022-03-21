@@ -4,7 +4,7 @@ import AppointmentRow from '../../components/AppointmentRow';
 import Card from '../../components/Card';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
-import { formatAppointmentDates, formatDocument, formatHealthSystemId, getAge, getLatestCompletedAppointment } from '../../helpers/helper-functions';
+import { formatAppointmentDates, formatDocument, formatHealthSystemId, getAge, getAgeInMonths, getLatestCompletedAppointment } from '../../helpers/helper-functions';
 import { usePatientFetch } from '../../hooks/usePatientFetch';
 import { CardsGrid } from './styles';
 
@@ -12,7 +12,7 @@ const Patient: FC = () => {
 
     const { patientId, appointmentId } = useParams();
 
-    const {state, loading, error} = usePatientFetch(Number(patientId), Number(appointmentId));
+    const { state, loading, error } = usePatientFetch(Number(patientId), Number(appointmentId));
 
     if (loading) {
         return <div><h1>Loading...</h1></div>
@@ -22,15 +22,17 @@ const Patient: FC = () => {
         return <div><h1>Something went wrong</h1></div>
     }
 
+    const latestAppointment = getLatestCompletedAppointment(state.patientAppointments);
+
     return (
         <div className="Home">
-            <MainGrid breadcrumbText="patient name">
+            <MainGrid breadcrumbText={state.patient.name}>
                 <CardsGrid>
                     <div className='grid-item'>
                         <Card>
                             <h5 style={{ paddingBottom: '30px' }}>Patient Info</h5>
                             <h2 style={{ paddingBottom: '10px' }}>{state.patient.name}</h2>
-                            <div style={{ fontSize: '13px' }} ><span>{formatDocument(state.patient.document)}</span><span style={{ float: "right" }}>{getAge(state.patient.birthday)}y/o</span></div>
+                            <div style={{ fontSize: '13px' }} ><span>{formatDocument(state.patient.document)}</span><span style={{ float: "right" }}>{ getAge(state.patient.birthday) > 0 ? getAge(state.patient.birthday)+'y/o' : getAgeInMonths(state.patient.birthday)+' months'}</span></div>
                         </Card>
                     </div>
                     <div className='grid-item'>
@@ -40,13 +42,17 @@ const Patient: FC = () => {
                             <div style={{ fontSize: '13px' }} ><span>{formatHealthSystemId(state.patient.healthSystemId)}</span></div>
                         </Card>
                     </div>
-                    <div className='grid-item'>
-                        <Card>
-                            <h5 style={{ paddingBottom: '30px' }}>Latest App.</h5>
-                            <h2 style={{ paddingBottom: '10px', textTransform: 'capitalize' }}>{getLatestCompletedAppointment(state.patientAppointments).specialty}</h2>
-                            <div style={{ fontSize: '13px' }} ><span>{formatAppointmentDates(getLatestCompletedAppointment(state.patientAppointments))}</span></div>
-                        </Card>
-                    </div>
+                    {
+                        latestAppointment ?
+                            <div className='grid-item'>
+                                <Card>
+                                    <h5 style={{ paddingBottom: '30px' }}>Latest App.</h5>
+                                    <h2 style={{ paddingBottom: '10px', textTransform: 'capitalize' }}>{getLatestCompletedAppointment(state.patientAppointments).specialty}</h2>
+                                    <div style={{ fontSize: '13px' }} ><span>{formatAppointmentDates(getLatestCompletedAppointment(state.patientAppointments))}</span></div>
+                                </Card>
+                            </div>
+                        : ''
+                    }
                 </CardsGrid>
                 <PatientAppointments>
                     <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />

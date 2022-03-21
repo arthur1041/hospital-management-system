@@ -4,7 +4,7 @@ import SideBar from "../SideBar";
 import { Wrapper } from "./styles"
 
 type ComponentProps = {
-    breadcrumbText: string 
+    breadcrumbText: string,
 }
 
 const MainGrid: FC<ComponentProps> = ({breadcrumbText, children}) => {

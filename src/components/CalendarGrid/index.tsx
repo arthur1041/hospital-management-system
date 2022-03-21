@@ -12,7 +12,11 @@ type ComponentProps = {
     patients: any[],
 }
 
-let exhibitedWeek = 7; //change here
+const thisWeek = 0;
+const lastWeek = 7;
+const weekBeforeLastWeek = 7*2;
+
+let exhibitedWeek = lastWeek;
 
 function isDateInThisWeek(date: Date) {
     date = new Date(date);
@@ -121,7 +125,11 @@ export const CalendarGrid: FC<ComponentProps> = ({ appointments, patients }) => 
                                         </Link>
                                     )
                                 } else {
-                                    return defaultCell;
+                                    return (
+                                        <Link key={hour + minute} className="link" to={`/patient/${appointment.patientId}/appointment/${appointment.id}`}>
+                                            {defaultCell}
+                                        </Link>
+                                    );
                                 }
 
                             }

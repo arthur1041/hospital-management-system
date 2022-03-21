@@ -69,6 +69,10 @@ export const getAge = (date: Date) => {
     return Math.trunc((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 }
 
+export const getAgeInMonths = (date: Date) => {
+    return Math.trunc((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * ((365.25)/12)));
+}
+
 export const getAppointmentsByPatient = (patientId: number, appointments: any[]) => {
     const patientAppointments: any[] = [];
 

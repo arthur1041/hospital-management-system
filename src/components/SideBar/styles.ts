@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
         position: relative;
         padding: 5px 10px 5px 10px;
         margin-top: 20px;
+        text-transform: capitalize;
     }
 
     .breadcrumb::after {
