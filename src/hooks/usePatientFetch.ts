@@ -38,7 +38,7 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
 
             patient.birthday = convertDate(patient.birthday);
 
-            let appointment = null;
+            let appointment: any = null;
 
             if (!isNaN(appointmentId)) {
                 appointment = await API.fetchAppointment(appointmentId);
@@ -49,11 +49,22 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
 
             const patientAppointments = sortReverseAppointmentsByDate(getAppointmentsByPatient(patient.id, await API.fetchAppointments()));
 
+            let appointmentIsInList: boolean = false;
             patientAppointments.forEach(el => {
                 el.startTime = convertDate(el.startTime);
                 if (el.endTime)
                     el.endTime = convertDate(el.endTime);
+
+                if(appointment !== null && (Number(el.id) === Number(appointment.id))){
+                    appointmentIsInList = true;
+                    console.log("ta na lista")
+                }
             });
+
+            if(!appointmentIsInList) {
+                appointment = null;
+            }
+
 
             if (!isNaN(appointmentId)) {
                 setState({ patient: { ...patient }, appointment: { ...appointment }, patientAppointments })

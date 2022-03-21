@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
+import AppointmentDetails from '../../components/AppointmentDetails';
 import AppointmentRow from '../../components/AppointmentRow';
 import Card from '../../components/Card';
 import MainGrid from '../../components/MainGrid';
@@ -27,6 +28,15 @@ const Patient: FC = () => {
     return (
         <div className="Home">
             <MainGrid breadcrumbText={state.patient.name}>
+                {
+                    state.appointment.id > 0 ? 
+                    <AppointmentDetails 
+                        specialty={state.appointment.specialty}
+                        description={state.appointment.description}
+                        notes={state.appointment.notes}
+                        mt={true}/>
+                    : ''
+                }
                 <CardsGrid>
                     <div className='grid-item'>
                         <Card>
@@ -54,12 +64,7 @@ const Patient: FC = () => {
                         : ''
                     }
                 </CardsGrid>
-                <PatientAppointments>
-                    <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
-                    <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
-                    <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
-                    <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
-                </PatientAppointments>
+                <PatientAppointments appointments={state.patientAppointments} />
             </MainGrid>
         </div>
     );

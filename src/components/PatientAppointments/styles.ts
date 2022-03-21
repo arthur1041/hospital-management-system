@@ -21,26 +21,13 @@ export const Wrapper = styled.div`
         }
     }
     
-    .appointments-list, .appointment-details  {
+    .appointments-list {
         padding: 20px;
         background-color: ${({theme}) => theme.colors.white};
     }
 
     .appointments-list {
         border-radius: 0px 10px 0px 0px;
-    }
-    
-    .appointment-details {
-        border-radius: 0px 0px 10px 10px;
-        h5 {
-            padding-bottom: 15px;
-        }
-        h3 {
-            padding-bottom: 10px;
-        }
-        div {
-            padding-left: 30px;
-        }
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
@@ -51,12 +38,6 @@ export const Wrapper = styled.div`
         .tabs {
             .tab {
                 padding: 10px;
-            }
-        }
-
-        .appointment-details {
-            div {
-                padding-left: initial;
             }
         }
     }

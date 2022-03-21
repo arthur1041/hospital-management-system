@@ -1,21 +1,43 @@
 import React, { FC } from "react";
+import AppointmentDetails from "../AppointmentDetails";
+import AppointmentRow from "../AppointmentRow";
 import { Wrapper } from "./styles";
 
-export const PatientAppointments: FC = ({children}) => {
+type ComponentProps = {
+    appointments: any[]
+}
+
+export const PatientAppointments: FC<ComponentProps > = ({ children, appointments }) => {
+    
+    // const [showThisWeek]
+    
     return (
         <Wrapper>
             <div className="tabs">
-                <div className="tab active" >Today</div>
+                <div className="tab active" >This Week</div>
                 <div className="tab">Upcoming</div>
                 <div className="tab">History</div>
             </div>
-            <div className="appointments-list">
-                {children}
+            <div className="appointments-list this-week">
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+            </div>
+            <div className="appointments-list upcoming">
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+            </div>
+            <div className="appointments-list history">
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
+                <AppointmentRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />
             </div>
             <div className="appointment-details">
-                <h5>Appointment Details</h5>
-                <h3>Neurology says</h3>
-                <div><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus eligendi quia explicabo natus minima vitae voluptatibus sit voluptates eum veniam.</span></div>
+                <AppointmentDetails description="a" notes="a" specialty="a" round="bottom" mt={false} />
             </div>
         </Wrapper>
     );
