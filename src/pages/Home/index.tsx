@@ -17,6 +17,10 @@ const Home: FC = () => {
         return <div><h1>Loading...</h1></div>
     }
 
+    if (error) {
+        return <div><h1>Something went wrong</h1></div>
+    }
+
     return (
         <div className="Home">
             <MainGrid breadcrumbText="patients">

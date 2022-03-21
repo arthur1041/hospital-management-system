@@ -1,3 +1,5 @@
+import { week } from "../util/calendar-util";
+
 export const getEntityById = (id: number, entityList: any[]) => {
     let result = null;
 
@@ -63,3 +65,47 @@ export const formatHealthSystemId = (document: string) => {
     return document.replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2/$3");
 }
 
+export const getAge = (date: Date) => {
+    return Math.trunc((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
+}
+
+export const getAppointmentsByPatient = (patientId: number, appointments: any[]) => {
+    const patientAppointments: any[] = [];
+
+    appointments.forEach(appointment => {
+        if (Number(appointment.patientId) === patientId) {
+            patientAppointments.push(appointment);
+        }
+    });
+
+    return patientAppointments;
+}
+
+export const getLatestCompletedAppointment = (appointments: any[]) => {
+    appointments = appointments.sort(compare).reverse();
+
+    let rAppointment = null;
+    for (let i = 0; i < appointments.length; i++) {
+        const appointment = appointments[i];
+        if (appointment.status === "completed") {
+            return appointment;
+        }
+    }
+
+    return rAppointment;
+}
+
+export const removeNonBusinessDay = (appointments: any[]) => {
+    const businessDayAppointments: any[] = [];
+    appointments.forEach((el: any) => {
+        if (el.startTime.getDay() !== week.SUNDAY && el.startTime.getDay() !== week.SATURDAY) {
+            businessDayAppointments.push(el);
+        }
+    });
+
+    return businessDayAppointments;
+}
+
+export const convertDate = (date: string) => {
+    return new Date(date.replace('Z', ''));
+}

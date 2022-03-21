@@ -4,6 +4,7 @@ export const CardsGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 15px;
+    margin-top: 30px;
 
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
         grid-template-columns: 1fr 1fr;

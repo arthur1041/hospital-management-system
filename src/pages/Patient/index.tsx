@@ -4,6 +4,7 @@ import AppointmentRow from '../../components/AppointmentRow';
 import Card from '../../components/Card';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
+import { formatAppointmentDates, formatDocument, formatHealthSystemId, getAge, getLatestCompletedAppointment } from '../../helpers/helper-functions';
 import { usePatientFetch } from '../../hooks/usePatientFetch';
 import { CardsGrid } from './styles';
 
@@ -13,7 +14,13 @@ const Patient: FC = () => {
 
     const {state, loading, error} = usePatientFetch(Number(patientId), Number(appointmentId));
 
-    console.log('paramaters', patientId, appointmentId );
+    if (loading) {
+        return <div><h1>Loading...</h1></div>
+    }
+
+    if (error) {
+        return <div><h1>Something went wrong</h1></div>
+    }
 
     return (
         <div className="Home">
@@ -22,22 +29,22 @@ const Patient: FC = () => {
                     <div className='grid-item'>
                         <Card>
                             <h5 style={{ paddingBottom: '30px' }}>Patient Info</h5>
-                            <h2 style={{ paddingBottom: '10px' }}>Herman Holland</h2>
-                            <div style={{ fontSize: '13px' }} ><span>XXX.XXX.XXX-XX</span><span style={{ float: "right" }}>51y/o</span></div>
+                            <h2 style={{ paddingBottom: '10px' }}>{state.patient.name}</h2>
+                            <div style={{ fontSize: '13px' }} ><span>{formatDocument(state.patient.document)}</span><span style={{ float: "right" }}>{getAge(state.patient.birthday)}y/o</span></div>
                         </Card>
                     </div>
                     <div className='grid-item'>
                         <Card>
                             <h5 style={{ paddingBottom: '30px' }}>Plan Info</h5>
-                            <h2 style={{ paddingBottom: '10px' }}>National Basic</h2>
-                            <div style={{ fontSize: '13px' }} ><span>752.921/6400</span></div>
+                            <h2 style={{ paddingBottom: '10px' }}>{state.patient.insurancePlan}</h2>
+                            <div style={{ fontSize: '13px' }} ><span>{formatHealthSystemId(state.patient.healthSystemId)}</span></div>
                         </Card>
                     </div>
                     <div className='grid-item'>
                         <Card>
                             <h5 style={{ paddingBottom: '30px' }}>Latest App.</h5>
-                            <h2 style={{ paddingBottom: '10px' }}>Neurology</h2>
-                            <div style={{ fontSize: '13px' }} ><span>04/30/2021</span></div>
+                            <h2 style={{ paddingBottom: '10px', textTransform: 'capitalize' }}>{getLatestCompletedAppointment(state.patientAppointments).specialty}</h2>
+                            <div style={{ fontSize: '13px' }} ><span>{formatAppointmentDates(getLatestCompletedAppointment(state.patientAppointments))}</span></div>
                         </Card>
                     </div>
                 </CardsGrid>

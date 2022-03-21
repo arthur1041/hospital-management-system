@@ -1,4 +1,5 @@
-import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId } from './helper-functions';
+import API from '../api/API';
+import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId, getAge, getAppointmentsByPatient, getLatestCompletedAppointment, removeNonBusinessDay, convertDate } from './helper-functions';
 
 it('properly finds an entity given an id', () => {
     const entities: any[] = [{ id: 1, name: 'Peter' }, { id: 2, name: 'Linda' }, { id: 3, name: 'John' }, { id: 4, name: 'Gwen' }];
@@ -70,4 +71,42 @@ it('properly sorts formats document', () => {
 it('properly sorts formats health system id', () => {
 
     expect(formatHealthSystemId("0000000000")).toBe("000.000/0000");
+});
+
+it('properly calculates age', () => {
+
+    expect(getAge(new Date('2002-12-29'))).toBe(19);
+});
+
+it("properly gets a patient's appointments", async () => {
+    const appointments: any[] = await API.fetchAppointments();
+    const patient: any = (await API.fetchPatients())[0];
+
+    const appointmentsRes = getAppointmentsByPatient(patient.id, appointments);
+
+    expect(appointmentsRes.length).toBeGreaterThan(0);
+});
+
+it("properly gets the latest completed appointment", async () => {
+    const appointments: any[] = await API.fetchAppointments();
+
+    expect(getLatestCompletedAppointment(appointments)).not.toBeNull();
+});
+
+it("properly removes non business days", async () => {
+    const appointments: any[] = await API.fetchAppointments();
+
+    appointments.forEach(element => {
+        element.startTime = new Date(element.startTime.replace('Z', ''));
+    });
+
+    expect(removeNonBusinessDay(appointments).length).toBeGreaterThan(0);
+});
+
+it("properly converts a date", async () => {
+    const appointments: any[] = await API.fetchAppointments();
+
+    convertDate(appointments[0].startTime);
+    
+    expect(convertDate(appointments[0].startTime)).toBeInstanceOf(Date);
 });

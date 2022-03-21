@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../api/API";
-import { sortReverseAppointmentsByDate } from "../helpers/helper-functions";
+import { removeNonBusinessDay, sortReverseAppointmentsByDate } from "../helpers/helper-functions";
 import { week } from "../util/calendar-util";
 
 const initialState = {
@@ -28,14 +28,8 @@ export const useHomeFetch = () => {
                     appointment.endTime = new Date(appointment.endTime.replace("Z", ""));
             });
             
-            const businessDayAppointments: any[] = [];
-            appointments.forEach((el: any) => {
-                if(el.startTime.getDay() !== week.SUNDAY && el.startTime.getDay() !== week.SATURDAY){
-                    businessDayAppointments.push(el);
-                }
-            });
 
-            appointments = businessDayAppointments;
+            appointments = removeNonBusinessDay(appointments);
 
             appointments = sortReverseAppointmentsByDate(appointments);
 
