@@ -7,7 +7,7 @@ import HistoryRow from '../../components/HistoryRow';
 import MainGrid from '../../components/MainGrid';
 import { useHomeFetch } from '../../hooks/useHomeFetch';
 import { IndicatorsContainer } from './styles';
-import { formatAppointmentDates } from '../../helpers/helper-functions';
+import { formatAppointmentDates, getEntityById } from '../../helpers/helper-functions';
 
 const Home: FC = () => {
 
@@ -24,7 +24,8 @@ const Home: FC = () => {
                 <History>
                     {
                         state.appointments.map((el: any)=>{
-                            return<HistoryRow key={el.id} date={formatAppointmentDates(el)} status="completed" name="John Doe" appointmentType="firstVisit" />;
+                            const patient = getEntityById(el.patientId, state.patients);
+                            return<HistoryRow key={el.id} date={formatAppointmentDates(el)} status={el.status} name={patient !== null ? patient.name : ''} appointmentType={el.type} />;
                         })
                     }
                     {/* <HistoryRow date="04/19/2021 12:00" status="completed" name="John Doe" appointmentType="firstVisit" />

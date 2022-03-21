@@ -120,13 +120,7 @@ export const Wrapper = styled.div`
 
             .appointment-description {    
                 font-size: 10px;
-            }
-        }
-    }
-
-    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
-        .calendar-cell-content-wrapper { 
-            .appointment-description { 
+              
                 white-space: nowrap;
                 width: 100%;
                 overflow: hidden;
@@ -134,5 +128,9 @@ export const Wrapper = styled.div`
                 text-overflow: ellipsis;
             }
         }
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakpoints.mobile}){
+       
     }
 `;

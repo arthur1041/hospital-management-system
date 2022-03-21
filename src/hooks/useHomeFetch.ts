@@ -21,9 +21,9 @@ export const useHomeFetch = () => {
 
             appointments.forEach((appointment: any) => {
                 if(appointment.startTime)
-                    appointment.startTime = appointment.startTime.replace("Z", "");
+                    appointment.startTime = new Date(appointment.startTime.replace("Z", ""));
                 if(appointment.endTime)
-                    appointment.endTime = appointment.endTime.replace("Z", "");
+                    appointment.endTime = new Date(appointment.endTime.replace("Z", ""));
         
             });
 

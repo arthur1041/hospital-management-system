@@ -13,7 +13,7 @@ export const getEntityById = (id: number, entityList: any[]) => {
 }
 
 export const formatAppointmentDates = (appointment: any) => {
-    const startDate: Date = new Date(appointment.startTime);
+    const startDate: Date = appointment.startTime;
 
     if (!appointment.endTime) {
         return (startDate.getDate().toString().length < 2 ? '0' + startDate.getDate() : startDate.getDate()) + "/"
@@ -23,7 +23,7 @@ export const formatAppointmentDates = (appointment: any) => {
             + (startDate.getMinutes() ? (startDate.getMinutes().toString().length < 2 ? '0' + startDate.getMinutes() : startDate.getMinutes()) : '00');
     }
 
-    const endDate: Date = new Date(appointment.endTime);
+    const endDate: Date = appointment.endTime;
 
     return (startDate.getDate().toString().length < 2 ? '0' + startDate.getDate() : startDate.getDate()) + "/"
         + ((startDate.getMonth() + 1).toString().length < 2 ? '0' + (startDate.getMonth() + 1) : startDate.getMonth()) + "/"
@@ -33,4 +33,18 @@ export const formatAppointmentDates = (appointment: any) => {
         + (endDate.getHours() ? (endDate.getHours().toString().length < 2 ? '0' + endDate.getHours() : endDate.getHours()) : '00') + ":"
         + (endDate.getMinutes() ? (endDate.getMinutes().toString().length < 2 ? '0' + endDate.getMinutes() : endDate.getMinutes()) : '00');
 
+}
+
+const compare = (a: any, b: any) => {
+    if (a.startTime < b.startTime) {
+        return -1;
+    }
+    if (a.startTime > b.startTime) {
+        return 1;
+    }
+    return 0;
+}
+
+export const sortAppointmentsByDate = (appointments: any[]) => {
+    return appointments.sort(compare);
 }
