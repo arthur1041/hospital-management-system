@@ -48,7 +48,7 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
 
 
     const [render, setRender] = useState(true);
-    const appointmentsPerPage = 10;
+    const appointmentsPerPage = 1;
 
     const focusThisWeek = () => {
         setShowUpcoming(false);

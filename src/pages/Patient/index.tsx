@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import AppointmentDetails from '../../components/AppointmentDetails';
-import AppointmentRow from '../../components/AppointmentRow';
 import Card from '../../components/Card';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
@@ -34,7 +33,8 @@ const Patient: FC = () => {
                         specialty={state.appointment.specialty}
                         description={state.appointment.description}
                         notes={state.appointment.notes}
-                        mt={true}/>
+                        mt={true}
+                        appDetails="Selected app. details"/>
                     : ''
                 }
                 <CardsGrid>
