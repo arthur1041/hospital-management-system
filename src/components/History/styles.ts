@@ -18,6 +18,7 @@ export const Wrapper = styled.div`
         .link {
             display: block;
             border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+            cursor: pointer;
         }
 
         .link:last-child {

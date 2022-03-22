@@ -65,7 +65,7 @@ const Patient: FC = () => {
                             : ''
                     }
                 </CardsGrid>
-                <History title='Appointments' appointments={state.patientAppointments} patients={[state.patient]} />
+                <History title='Appointments' openModal={true} appointments={state.patientAppointments} patients={[state.patient]} />
                 <PatientAppointments appointments={state.patientAppointments} />
             </MainGrid>
         </div>
