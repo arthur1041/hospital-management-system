@@ -57,7 +57,6 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
 
                 if(appointment !== null && (Number(el.id) === Number(appointment.id))){
                     appointmentIsInList = true;
-                    console.log("ta na lista")
                 }
             });
 
