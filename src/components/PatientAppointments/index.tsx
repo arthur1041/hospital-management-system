@@ -225,9 +225,6 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
                         </div>
                     </div>
                     : ''}
-                <div className={`appointment-details ${showDetails ? "show" : ''}`}>
-                    <AppointmentDetails description="a" notes="a" specialty="a" round="none" noPadding={true} mt={false} />
-                </div>
             </div>
         </Wrapper>
     );

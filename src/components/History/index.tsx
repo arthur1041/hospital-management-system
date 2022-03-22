@@ -8,10 +8,11 @@ import { Wrapper } from "./styles";
 
 type ComponentProps = {
     appointments: any[],
-    patients: any[]
+    patients: any[],
+    title?: string
 }
 
-const History: FC<ComponentProps> = ({ appointments, patients }) => {
+const History: FC<ComponentProps> = ({ appointments, patients, title }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [render, setRender] = useState(true);
@@ -36,7 +37,7 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
     return (
         <Wrapper>
             <div className="history-header">
-                <h3>History</h3>
+                <h3>{title && title.length > 0 ? title : "History"}</h3>
             </div>
             {render ?
                 <div className="registries-container">

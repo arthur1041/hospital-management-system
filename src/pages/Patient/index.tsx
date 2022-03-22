@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import AppointmentDetails from '../../components/AppointmentDetails';
 import Card from '../../components/Card';
+import History from '../../components/History';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
 import { formatAppointmentDates, formatDocument, formatHealthSystemId, getAge, getAgeInMonths, getLatestCompletedAppointment } from '../../helpers/helper-functions';
@@ -28,21 +29,21 @@ const Patient: FC = () => {
         <div className="Home">
             <MainGrid breadcrumbText={state.patient.name}>
                 {
-                    state.appointment.id > 0 ? 
-                    <AppointmentDetails 
-                        specialty={state.appointment.specialty}
-                        description={state.appointment.description}
-                        notes={state.appointment.notes}
-                        mt={true}
-                        appDetails="Selected app. details"/>
-                    : ''
+                    state.appointment.id > 0 ?
+                        <AppointmentDetails
+                            specialty={state.appointment.specialty}
+                            description={state.appointment.description}
+                            notes={state.appointment.notes}
+                            mt={true}
+                            appDetails="Selected app. details" />
+                        : ''
                 }
                 <CardsGrid>
                     <div className='grid-item'>
                         <Card>
                             <h5 style={{ paddingBottom: '30px' }}>Patient Info</h5>
                             <h2 style={{ paddingBottom: '10px' }}>{state.patient.name}</h2>
-                            <div style={{ fontSize: '13px' }} ><span>{formatDocument(state.patient.document)}</span><span style={{ float: "right" }}>{ getAge(state.patient.birthday) > 0 ? getAge(state.patient.birthday)+'y/o' : getAgeInMonths(state.patient.birthday)+' months'}</span></div>
+                            <div style={{ fontSize: '13px' }} ><span>{formatDocument(state.patient.document)}</span><span style={{ float: "right" }}>{getAge(state.patient.birthday) > 0 ? getAge(state.patient.birthday) + 'y/o' : getAgeInMonths(state.patient.birthday) + ' months'}</span></div>
                         </Card>
                     </div>
                     <div className='grid-item'>
@@ -61,9 +62,10 @@ const Patient: FC = () => {
                                     <div style={{ fontSize: '13px' }} ><span>{formatAppointmentDates(getLatestCompletedAppointment(state.patientAppointments))}</span></div>
                                 </Card>
                             </div>
-                        : ''
+                            : ''
                     }
                 </CardsGrid>
+                <History title='Appointments' appointments={state.patientAppointments} patients={[state.patient]} />
                 <PatientAppointments appointments={state.patientAppointments} />
             </MainGrid>
         </div>
