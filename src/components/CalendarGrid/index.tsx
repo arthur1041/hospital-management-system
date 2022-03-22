@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Wrapper } from "./styles";
 import { getCalendarStructure, HourAndMinutes, week, getWeekNameAbreviation } from "../../util/calendar-util";
-import { getEntityById } from "../../helpers/helper-functions";
+import { getEntityById, isDateInThisWeek } from "../../helpers/helper-functions";
 import { FaBriefcaseMedical, FaStethoscope } from 'react-icons/fa';
 import { IoMdPulse } from 'react-icons/io';
 import { GiDrippingKnife, GiNotebook } from 'react-icons/gi';
@@ -10,30 +10,6 @@ import { Link } from "react-router-dom";
 type ComponentProps = {
     appointments: any[],
     patients: any[],
-}
-
-const thisWeek = 0;
-const lastWeek = 7;
-const weekBeforeLastWeek = 7*2;
-
-let exhibitedWeek = lastWeek;
-
-function isDateInThisWeek(date: Date) {
-    date = new Date(date);
-
-    date.setHours(0)
-    date.setMinutes(0);
-
-    const todayObj = new Date();
-    const todayDate = todayObj.getDate();
-    const todayDay = todayObj.getDay();
-
-    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + exhibitedWeek)));
-
-    const lastDayOfWeek = new Date(firstDayOfWeek);
-    lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
-
-    return date >= firstDayOfWeek && date <= lastDayOfWeek;
 }
 
 const getAppointmentByWeekAndTime = (weekDay: number, hour: number, minute: number, appointments: any[]) => {

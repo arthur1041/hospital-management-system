@@ -1,7 +1,13 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div<{ round?: string, mt?: boolean }>`
-     padding: 20px;
+export const Wrapper = styled.div<{ round?: string, mt?: boolean, noPadding?: boolean }>`
+   
+    ${({noPadding}) => {
+        if(!noPadding){
+            return css`padding: 20px;`;
+        }
+    }}
+   
      background-color: ${({ theme }) => theme.colors.white};
      
      ${({ mt }) => {
@@ -10,8 +16,13 @@ export const Wrapper = styled.div<{ round?: string, mt?: boolean }>`
     }};
 
      ${({ round }) => {
-        if (round === 'bottom')
+        if (round === 'bottom') {
             return css`border-radius: 0  0 10px 10px;`;
+        }
+        if (round === 'none') {
+            return css`border-radius: initial`;
+        }
+
         return css`border-radius: 10px`;
     }};
 
@@ -28,9 +39,9 @@ export const Wrapper = styled.div<{ round?: string, mt?: boolean }>`
     @media screen and (max-width: ${({ theme }) => theme.breakpoints.tablet}){
       
         ${({ mt }) => {
-            if (mt)
-                return css`margin-top: initial;`;
-        }};
+        if (mt)
+            return css`margin-top: initial;`;
+    }};
   
     }
 

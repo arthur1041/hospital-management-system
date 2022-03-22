@@ -70,7 +70,7 @@ export const getAge = (date: Date) => {
 }
 
 export const getAgeInMonths = (date: Date) => {
-    return Math.trunc((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * ((365.25)/12)));
+    return Math.trunc((new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24 * ((365.25) / 12)));
 }
 
 export const getAppointmentsByPatient = (patientId: number, appointments: any[]) => {
@@ -112,4 +112,28 @@ export const removeNonBusinessDay = (appointments: any[]) => {
 
 export const convertDate = (date: string) => {
     return new Date(date.replace('Z', ''));
+}
+
+const thisWeek = 0;
+const lastWeek = 7;
+const weekBeforeLastWeek = 7*2;
+
+let exhibitedWeek = lastWeek;
+
+export const isDateInThisWeek = (date: Date) => {
+    date = new Date(date);
+
+    date.setHours(0)
+    date.setMinutes(0);
+
+    const todayObj = new Date();
+    const todayDate = todayObj.getDate();
+    const todayDay = todayObj.getDay();
+
+    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + exhibitedWeek)));
+
+    const lastDayOfWeek = new Date(firstDayOfWeek);
+    lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);
+
+    return date >= firstDayOfWeek && date <= lastDayOfWeek;
 }

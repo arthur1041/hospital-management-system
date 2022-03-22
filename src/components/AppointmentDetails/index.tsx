@@ -5,14 +5,15 @@ import { Wrapper } from "./styles";
 type ComponentProps = {
     round?: string,
     mt?: boolean,
+    noPadding?: boolean,
     specialty: string,
     description: string,
     notes: string,
 }
 
-const AppointmentDetails: FC<ComponentProps> = ({ round, mt, specialty, description, notes }) => {
+const AppointmentDetails: FC<ComponentProps> = ({ round, mt, specialty, description, notes, noPadding }) => {
     return (
-        <Wrapper round={round} mt={mt}>
+        <Wrapper round={round} mt={mt} noPadding={noPadding}>
             <h5>Appointment Details</h5>
             <h3 className="header-desc"><span>{specialty}</span> says</h3>
             <div className="description"><span>{description}</span></div>

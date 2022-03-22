@@ -3,12 +3,10 @@ import { Wrapper } from "./styles";
 import { FaBriefcaseMedical,FaStethoscope } from 'react-icons/fa'; //firs visit
 import { IoMdPulse } from 'react-icons/io'; //exam
 import { GiDrippingKnife, GiNotebook } from 'react-icons/gi' //checkup //surgery //followup
+import { formatAppointmentDates } from "../../helpers/helper-functions";
 
 type ComponentProps = {
-    date: string,
-    status: string,
-    name: string,
-    appointmentType: string
+    appointment: any
 }
 
 const getAppointmentTypeIcon = (appointmentType: string) =>{
@@ -27,15 +25,15 @@ const getAppointmentTypeIcon = (appointmentType: string) =>{
     return null;
 }
 
-const AppointmentRow: FC<ComponentProps> = ({ date, status, name, appointmentType }) => {
+const AppointmentRow: FC<ComponentProps> = ({ appointment }) => {
     return (
         <Wrapper>
-            <div className="grid-item icon">{getAppointmentTypeIcon(appointmentType)}</div>
-            <div className="grid-item date">{date}</div>
+            <div className="grid-item icon">{getAppointmentTypeIcon(appointment.type)}</div>
+            <div className="grid-item date">{formatAppointmentDates(appointment)}</div>
             <div className="grid-item appointment-type">
-                <span className="name">{appointmentType}</span>
+                <span className="name">{appointment.type}</span>
             </div>
-            <div className={"grid-item status " + status + "_styling"}><span>{status}</span></div>
+            <div className={"grid-item status " + appointment.status + "_styling"}><span>{appointment.status}</span></div>
         </Wrapper>
     );
 }
