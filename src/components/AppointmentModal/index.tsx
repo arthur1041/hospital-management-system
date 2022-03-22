@@ -14,7 +14,7 @@ type ComponentProps = {
 const AppointmentModal: FC<ComponentProps> = ({ appointmentId, showModal, setShowModal }) => {
 
     const { state, loading, error } = useUniqueAppointmentFetch(appointmentId);
-    console.log("oid", appointmentId);
+
     const [cxAtiva, setCxAtiva] = useState(true);
 
     const modalRef = useRef<HTMLDivElement>(null);

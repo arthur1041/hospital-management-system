@@ -115,10 +115,10 @@ export const convertDate = (date: string) => {
 }
 
 const thisWeek = 0; // <-- select this one in order to use the current week
-const lastWeek = 7;
-const weekBeforeLastWeek = 7*2;
+// const lastWeek = 7;
+// const weekBeforeLastWeek = 7*2;
 
-let exhibitedWeek = lastWeek;
+let exhibitedWeek = thisWeek;
 
 export const isDateInThisWeek = (date: Date) => {
     date = new Date(date);
@@ -130,7 +130,7 @@ export const isDateInThisWeek = (date: Date) => {
     const todayDate = todayObj.getDate();
     const todayDay = todayObj.getDay();
 
-    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + lastWeek)));
+    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - (todayDay + 1 + exhibitedWeek)));
 
     const lastDayOfWeek = new Date(firstDayOfWeek);
     lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6);

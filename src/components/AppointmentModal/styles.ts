@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
     top: 0;
 
     .modal-wrapper {
-        min-width: 400px;
+        min-width: 200px;
         max-width: 800px;
         height: 500px;
         box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
