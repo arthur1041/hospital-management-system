@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../api/API";
 import { removeNonBusinessDay, sortReverseAppointmentsByDate } from "../helpers/helper-functions";
-import { week } from "../util/calendar-util";
 
 const initialState = {
     appointments: [],
@@ -10,7 +9,7 @@ const initialState = {
 
 export const useHomeFetch = () => {
     const [state, setState] = useState(initialState);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
     const fetchAppointmentsAndPatients = async () => {

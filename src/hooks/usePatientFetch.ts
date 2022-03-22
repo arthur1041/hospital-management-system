@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import API from "../api/API";
-import { convertDate, getAppointmentsByPatient, sortReverseAppointmentsByDate } from "../helpers/helper-functions";
+import { convertDate, getAppointmentsByPatient, removeNonBusinessDay, sortReverseAppointmentsByDate } from "../helpers/helper-functions";
 
 type StateType = {
     patient: any,
@@ -20,12 +20,12 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
     const [error, setError] = useState(false);
 
     const fetchPatient = useCallback(async () => {
-        if (isNaN(patientId)) {
-            setLoading(false);
-            throw new Error("patientId must be a valid number");
-        }
-
         try {
+            if (isNaN(patientId)) {
+                setLoading(false);
+                throw new Error("patientId must be a valid number");
+            }
+            
             setError(false);
             setLoading(true);
 
@@ -47,7 +47,7 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
                     appointment.endTime = convertDate(appointment.endTime);
             }
 
-            const patientAppointments = sortReverseAppointmentsByDate(getAppointmentsByPatient(patient.id, await API.fetchAppointments()));
+            let patientAppointments = sortReverseAppointmentsByDate(getAppointmentsByPatient(patient.id, await API.fetchAppointments()));
 
             let appointmentIsInList: boolean = false;
             patientAppointments.forEach(el => {
@@ -64,6 +64,7 @@ export const usePatientFetch = (patientId: number, appointmentId: number) => {
                 appointment = null;
             }
 
+            patientAppointments = removeNonBusinessDay(patientAppointments);
 
             if (!isNaN(appointmentId)) {
                 setState({ patient: { ...patient }, appointment: { ...appointment }, patientAppointments })
