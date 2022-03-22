@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+import { useSpring, animated } from 'react-spring';
 import { Link } from "react-router-dom";
 import { formatAppointmentDates, getEntityById } from "../../helpers/helper-functions";
 import AppointmentModal from "../AppointmentModal";
@@ -47,11 +48,21 @@ const History: FC<ComponentProps> = ({ appointments, patients, title, openModal 
         }, 500)
     }, [currentPage, render]);
 
+    const animation = useSpring({
+        config: {
+            duration: 250,
+        },
+        opacity: showModal ? 1 : 0,
+        transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
+    });
+
     return (
         <Wrapper>
             {
                 showModal ?
-                    <AppointmentModal appointmentId={lastAppoinmentId} setShowModal={setShowModal} />
+                    <animated.span style={{...animation}}>
+                        <AppointmentModal appointmentId={lastAppoinmentId} setShowModal={setShowModal} showModal={showModal} />
+                    </animated.span>
                     : ''
             }
             <div className="history-header">
