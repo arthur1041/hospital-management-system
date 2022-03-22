@@ -51,7 +51,7 @@ const History: FC<ComponentProps> = ({ appointments, patients, title, openModal 
         <Wrapper>
             {
                 showModal ?
-                    <AppointmentModal appointmentId={lastAppoinmentId} />
+                    <AppointmentModal appointmentId={lastAppoinmentId} setShowModal={setShowModal} />
                     : ''
             }
             <div className="history-header">

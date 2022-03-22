@@ -18,10 +18,19 @@ export const Wrapper = styled.div`
         min-height: 500px;
         max-height: 700px;
         box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-        background-color: ${({theme}) => theme.colors.white};
+        background-color: ${({ theme }) => theme.colors.white};
         position: relative;
         z-index: 10;
         border-radius: 10px;
-        padding: 20px;
+        padding: 25px;
+
+        .close-modal-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
     }
+
+
 `;
