@@ -52,7 +52,7 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
     const [renderUpcomingList, setRenderUpcomingList] = useState(true);
     const [renderHistoryList, setRenderHistoryList] = useState(true);
 
-    const appointmentsPerPage = 2;
+    const appointmentsPerPage = 4;
 
     const focusThisWeek = () => {
         setShowUpcoming(false);
@@ -170,7 +170,10 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
                                     )
                                 })}
                             </div>
-                            : ''
+                            :
+                            <div className="spinner-container">
+                                <Spinner />
+                            </div>
                         }
                         <div className="paginator-container">
                             <Pagination elementsPerPage={appointmentsPerPage} totalElements={appointmentsInThisWeek.length} paginate={paginateWeek} />

@@ -5,7 +5,8 @@ export const Wrapper = styled.div`
     grid-template-columns: 1fr 10fr 10fr 10fr;
     padding-top: 5px;
     padding-bottom: 5px;
-        
+    cursor: pointer;
+
     .grid-item{
         display: flex;
         justify-content: center;
