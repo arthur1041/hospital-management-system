@@ -10,11 +10,15 @@ type ComponentProps = {
 const Pagination: FC<ComponentProps> = ({totalElements, elementsPerPage, paginate}) => {
 
     const [clickedItem, setClickedItem] = useState(1);
+    const [lastNumber, setLastNumber] = useState(1);
 
     const pageNumbers: number[] = [];
 
     const overridenPaginate = (number: number) => {
-        paginate(number);
+        if(number !== Number(lastNumber)){
+            paginate(number);
+            setLastNumber(number);
+        }
         
         setClickedItem(number);
 

@@ -1,5 +1,5 @@
 import API from '../api/API';
-import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId, getAge, getAppointmentsByPatient, getLatestCompletedAppointment, removeNonBusinessDay, convertDate, getAgeInMonths } from './helper-functions';
+import { getEntityById, formatAppointmentDates, sortAppointmentsByDate, sortReverseAppointmentsByDate, formatDocument, formatHealthSystemId, getAge, getAppointmentsByPatient, getLatestCompletedAppointment, removeNonBusinessDay, convertDate, getAgeInMonths, isDateInThisWeek } from './helper-functions';
 
 it('properly finds an entity given an id', () => {
     const entities: any[] = [{ id: 1, name: 'Peter' }, { id: 2, name: 'Linda' }, { id: 3, name: 'John' }, { id: 4, name: 'Gwen' }];
@@ -115,3 +115,9 @@ it("properly converts a date", async () => {
 
     expect(convertDate(appointments[0].startTime)).toBeInstanceOf(Date);
 });
+
+it("properly checks if a date is in this week", async () => {
+ 
+    expect(isDateInThisWeek(new Date())).toBe(true);
+});
+

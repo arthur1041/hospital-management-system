@@ -3,6 +3,7 @@ import { isDateInThisWeek, sortReverseAppointmentsByDate } from "../../helpers/h
 import AppointmentDetails from "../AppointmentDetails";
 import AppointmentRow from "../AppointmentRow";
 import Pagination from "../Pagination";
+import Spinner from "../Spinner";
 import { Wrapper } from "./styles";
 
 type ComponentProps = {
@@ -47,8 +48,11 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
     const [currentPageHistory, setcurrentPageHistory] = useState(1);
 
 
-    const [render, setRender] = useState(true);
-    const appointmentsPerPage = 1;
+    const [renderWeekList, setRenderWeekList] = useState(true);
+    const [renderUpcomingList, setRenderUpcomingList] = useState(true);
+    const [renderHistoryList, setRenderHistoryList] = useState(true);
+
+    const appointmentsPerPage = 2;
 
     const focusThisWeek = () => {
         setShowUpcoming(false);
@@ -69,14 +73,17 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
     }
 
     const paginateWeek = (pageNumber: number) => {
+        setRenderWeekList(false);
         setCurrentPageWeek(pageNumber)
     };
 
     const paginateUpcoming = (pageNumber: number) => {
+        setRenderUpcomingList(false);
         setCurrentPageUpcoming(pageNumber)
     };
 
     const paginateHistory = (pageNumber: number) => {
+        setRenderHistoryList(false)
         setcurrentPageHistory(pageNumber)
     };
 
@@ -99,7 +106,7 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
     useEffect(() => {
         if (appointmentsInThisWeek.length <= 0) {
             if (appointmentsAfterToday.length > 0) {
-                focusUpcoming()
+                focusUpcoming();
             } else {
                 focusHistory();
             }
@@ -108,7 +115,7 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
 
         if (appointmentsAfterToday.length <= 0) {
             if (appointmentsHistory.length > 0) {
-                focusHistory()
+                focusHistory();
             } else {
                 focusThisWeek();
             }
@@ -122,7 +129,28 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
             }
         }
 
-    }, [appointmentsAfterToday.length, appointmentsHistory.length, appointmentsInThisWeek.length])
+    }, [appointmentsAfterToday.length, appointmentsHistory.length, appointmentsInThisWeek.length]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (!renderWeekList)
+                setRenderWeekList(true);
+        }, 500)
+    }, [currentPageWeek, renderWeekList]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (!renderUpcomingList)
+                setRenderUpcomingList(true);
+        }, 500)
+    }, [currentPageUpcoming, renderUpcomingList]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (!renderHistoryList)
+                setRenderHistoryList(true);
+        }, 500)
+    }, [currentPageHistory, renderHistoryList]);
 
     return (
         <Wrapper>
@@ -134,28 +162,40 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
             <div className="lists-container">
                 {appointmentsInThisWeek.length > 0 ?
                     <div className={`appointments-list this-week ${showThisWeek ? "show" : ''} `}>
-                        <div className="list">
-                            {currentAppointmentsWeek.map((el) => {
-                                return (
-                                    <AppointmentRow key={el.id} appointment={el} />
-                                )
-                            })}
-                        </div>
+                        {renderWeekList ?
+                            <div className="list">
+                                {currentAppointmentsWeek.map((el) => {
+                                    return (
+                                        <AppointmentRow key={el.id} appointment={el} />
+                                    )
+                                })}
+                            </div>
+                            : ''
+                        }
                         <div className="paginator-container">
                             <Pagination elementsPerPage={appointmentsPerPage} totalElements={appointmentsInThisWeek.length} paginate={paginateWeek} />
                         </div>
                     </div>
-                    : ''
+                    :
+                    <div className="spinner-container">
+                        <Spinner />
+                    </div>
                 }
                 {appointmentsAfterToday.length > 0 ?
                     <div className={`appointments-list upcoming ${showUpcoming ? "show " : ''}`}>
-                        <div className="list">
-                            {currentAppointmentsUpcoming.map((el) => {
-                                return (
-                                    <AppointmentRow key={el.id} appointment={el} />
-                                )
-                            })}
-                        </div>
+                        {renderUpcomingList ?
+                            <div className="list">
+                                {currentAppointmentsUpcoming.map((el) => {
+                                    return (
+                                        <AppointmentRow key={el.id} appointment={el} />
+                                    )
+                                })}
+                            </div>
+                            :
+                            <div className="spinner-container">
+                                <Spinner />
+                            </div>
+                        }
                         <div className="paginator-container">
                             <Pagination elementsPerPage={appointmentsPerPage} totalElements={appointmentsAfterToday.length} paginate={paginateUpcoming} />
                         </div>
@@ -164,13 +204,19 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
                 }
                 {appointmentsHistory.length > 0 ?
                     <div className={`appointments-list history ${showHistory ? "show" : ''}`}>
-                        <div className="list">
-                            {currentAppointmentsHistory.map((el) => {
-                                return (
-                                    <AppointmentRow key={el.id} appointment={el} />
-                                )
-                            })}
-                        </div>
+                        {renderHistoryList ?
+                            <div className="list">
+                                {currentAppointmentsHistory.map((el) => {
+                                    return (
+                                        <AppointmentRow key={el.id} appointment={el} />
+                                    )
+                                })}
+                            </div>
+                            :
+                            <div className="spinner-container">
+                                <Spinner />
+                            </div>
+                        }
                         <div className="paginator-container">
                             <Pagination elementsPerPage={appointmentsPerPage} totalElements={appointmentsHistory.length} paginate={paginateHistory} />
                         </div>

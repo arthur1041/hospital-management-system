@@ -27,10 +27,10 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
     };
 
     useEffect(() => {
-        setTimeout(function () {
+        setTimeout(() => {
             if (!render)
                 setRender(true);
-        }.bind(this), 500)
+        }, 500)
     }, [currentPage, render]);
 
     return (
