@@ -49,18 +49,18 @@ const History: FC<ComponentProps> = ({ appointments, patients }) => {
                                     <HistoryRow key={el.id} date={formatAppointmentDates(el)} status={el.status} name={patient !== null ? patient.name : ''} appointmentType={el.type} />
                                 </Link>
                             );
-                    })
-                }
-                                </div>
-            :
-                    <div className="spinner-container">
-                        <Spinner />
-                    </div>
+                        })
+                    }
+                </div>
+                :
+                <div className="spinner-container">
+                    <Spinner />
+                </div>
             }
-                    <div className="paginator-container"><Pagination elementsPerPage={appointmentsPerPage} totalElements={appointments.length} paginate={paginate} /></div>
-                </Wrapper>
+            <div className="paginator-container"><Pagination elementsPerPage={appointmentsPerPage} totalElements={appointments.length} paginate={paginate} /></div>
+        </Wrapper>
     );
 
 }
 
-            export default History;
+export default History;
