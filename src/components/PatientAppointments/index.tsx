@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { isDateInThisWeek, sortReverseAppointmentsByDate } from "../../helpers/helper-functions";
+import { isDateInThisWeek, sortAppointmentsByDate, sortReverseAppointmentsByDate } from "../../helpers/helper-functions";
 import AppointmentDetails from "../AppointmentDetails";
 import AppointmentRow from "../AppointmentRow";
 import Pagination from "../Pagination";
@@ -18,7 +18,7 @@ const getAppointmentsInThisWeek = (appointments: any[]) => {
         }
     });
 
-    return appointmentsInThisWeek;
+    return sortReverseAppointmentsByDate(appointmentsInThisWeek);
 }
 
 const getAppointmentsAfterToday = (appointments: any[]) => {
@@ -29,11 +29,19 @@ const getAppointmentsAfterToday = (appointments: any[]) => {
         }
     });
 
-    return appointmentsAfterToday;
+    return sortAppointmentsByDate(appointmentsAfterToday);
 }
 
 const getAppointmentsHistory = (appointments: any[]) => {
-    return sortReverseAppointmentsByDate(appointments);
+    const appointmentsHistory: any[] = [];
+
+    appointments.forEach(el => {
+        if(el.startTime < new Date()){
+            appointmentsHistory.push(el);
+        }
+    });
+
+    return sortReverseAppointmentsByDate(appointmentsHistory);
 };
 
 export const PatientAppointments: FC<ComponentProps> = ({ children, appointments }) => {
@@ -41,7 +49,6 @@ export const PatientAppointments: FC<ComponentProps> = ({ children, appointments
     const [showThisWeek, setShowThisWeek] = useState(true);
     const [showUpcoming, setShowUpcoming] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
-    const [showDetails, setshowDetails] = useState(false);
 
     const [currentPageWeek, setCurrentPageWeek] = useState(1);
     const [currentPageUpcoming, setCurrentPageUpcoming] = useState(1);

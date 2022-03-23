@@ -5,6 +5,7 @@ import Calendar from '../../components/Calendar';
 import History from '../../components/History';
 import MainGrid from '../../components/MainGrid';
 import PatientsList from '../../components/PatientsList';
+import Spinner from '../../components/Spinner';
 import { useHomeFetch } from '../../hooks/useHomeFetch';
 import { IndicatorsContainer } from './styles';
 
@@ -14,7 +15,7 @@ const Home: FC = () => {
 
 
     if (loading) {
-        return <div><h1>Loading...</h1></div>
+        return <Spinner/>;
     }
 
     if (error) {

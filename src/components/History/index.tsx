@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useSpring, animated } from 'react-spring';
 import { Link } from "react-router-dom";
-import { formatAppointmentDates, getEntityById } from "../../helpers/helper-functions";
+import { formatAppointmentDates, getEntityById, sortReverseAppointmentsByDate } from "../../helpers/helper-functions";
 import AppointmentModal from "../AppointmentModal";
 import HistoryRow from "../HistoryRow";
 import Pagination from "../Pagination";
@@ -15,7 +15,21 @@ type ComponentProps = {
     openModal?: boolean
 }
 
+const getAppointmentsHistory = (appointments: any[]) => {
+    const appointmentsHistory: any[] = [];
+
+    appointments.forEach(el => {
+        if(el.startTime < new Date()){
+            appointmentsHistory.push(el);
+        }
+    });
+
+    return sortReverseAppointmentsByDate(appointmentsHistory);
+};
+
 const History: FC<ComponentProps> = ({ appointments, patients, title, openModal }) => {
+
+    appointments = getAppointmentsHistory(appointments);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [render, setRender] = useState(true);

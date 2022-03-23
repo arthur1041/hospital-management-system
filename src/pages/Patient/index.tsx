@@ -5,6 +5,7 @@ import Card from '../../components/Card';
 import History from '../../components/History';
 import MainGrid from '../../components/MainGrid';
 import { PatientAppointments } from '../../components/PatientAppointments';
+import Spinner from '../../components/Spinner';
 import { formatAppointmentDates, formatDocument, formatHealthSystemId, getAge, getAgeInMonths, getLatestCompletedAppointment } from '../../helpers/helper-functions';
 import { usePatientFetch } from '../../hooks/usePatientFetch';
 import { CardsGrid } from './styles';
@@ -16,7 +17,7 @@ const Patient: FC = () => {
     const { state, loading, error } = usePatientFetch(Number(patientId), Number(appointmentId));
 
     if (loading) {
-        return <div><h1>Loading...</h1></div>
+        return <Spinner/>
     }
 
     if (error) {
