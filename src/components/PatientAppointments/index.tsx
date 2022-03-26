@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import { isDateInThisWeek, sortAppointmentsByDate, sortReverseAppointmentsByDate } from "../../helpers/helper-functions";
-import AppointmentDetails from "../AppointmentDetails";
 import AppointmentRow from "../AppointmentRow";
 import Pagination from "../Pagination";
 import Spinner from "../Spinner";
