@@ -15,4 +15,4 @@ Once you've installe the necessary tools, you need to do the following to get th
 2. After installing the dependencies, run `npm start` in order to start the application, and it will open at port 3000.
 
 ### Running the tests
-The unit tests were written using the `Jest` library, once you ran `npm install`, it will also be installed and you can run tests with the `npm test` command specifying the path of the test file that you want to run. For example: `npm test src\helpers\helper-functions.test.ts`
+The unit tests were written using the `Jest` library, once you ran `npm install`, it will also be installed and you can run tests with the `npm test` command to run all tests o run it specifying the path of the test file that you want to run. For example: `npm test src\helpers\helper-functions.test.ts`
